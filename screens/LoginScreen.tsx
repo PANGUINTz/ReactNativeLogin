@@ -8,16 +8,43 @@ import {
   TextInput,
   Button,
   Pressable,
+  Alert,
 } from 'react-native';
 import React from 'react';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useNavigation} from '@react-navigation/native';
+import axios from 'axios';
 
 const LoginScreen: React.FC = () => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const navigation = useNavigation();
+
+  const handleLogin = () => {
+    const user = {
+      email: email,
+      password: password,
+    };
+    axios
+      .post('http://192.168.1.104:8080/login', user)
+      .then(response => {
+        console.log(response.data);
+        Alert.alert('Login Successfully', 'you have been login successfully');
+        setEmail('');
+        setPassword('');
+        setTimeout(() => {
+          navigation.navigate('Home');
+        }, 500);
+      })
+      .catch(error => {
+        Alert.alert(
+          'Registration failed',
+          'An error accurred during registration',
+        );
+        console.log('error', error);
+      });
+  };
 
   return (
     <SafeAreaView
@@ -109,6 +136,7 @@ const LoginScreen: React.FC = () => {
         </View>
         <View style={{marginTop: 45}} />
         <Button
+          onPress={handleLogin}
           title="Log in"
           accessibilityLabel="Learn more about this purple button"
           color="black"

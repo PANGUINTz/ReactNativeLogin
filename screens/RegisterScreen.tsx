@@ -47,6 +47,17 @@ const Register = () => {
         console.log('error', error);
       });
   };
+
+  const handleClick = () => {
+    axios
+      .get('http://192.168.1.104:8080/test')
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.log(error, error);
+      });
+  };
   return (
     <SafeAreaView
       style={{flex: 1, backgroundColor: 'white', alignItems: 'center'}}>
@@ -160,6 +171,8 @@ const Register = () => {
             Already have an account? Sign in
           </Text>
         </Pressable>
+
+        <Button onPress={handleClick} color={'black'} title="Click Me"></Button>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );

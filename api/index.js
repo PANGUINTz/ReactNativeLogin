@@ -7,6 +7,7 @@ const nodemailer = require('nodemailer');
 const app = express();
 const port = 8080;
 const cors = require('cors');
+const ipAddress = '192.168.1.104';
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -20,8 +21,8 @@ mongoose
   .then(() => console.log('Connected to mongoDB'))
   .catch(err => console.log('Error Connecting to mongoDB'));
 
-app.listen(port, '192.168.1.104', () => {
-  console.log(`Server is running on http://192.168.1.104`);
+app.listen(port, ipAddress, () => {
+  console.log(`Server is running on http://${ipAddress}`);
 });
 
 const User = require('./models/user');
